@@ -8,7 +8,7 @@ import sys, getopt
 import math
 import os
 from nltk.tokenize import word_tokenize
-
+import math
 
 
 '''
@@ -26,6 +26,7 @@ def make_inverted_index(path):
 	for filename in os.listdir(path):
 		if filename.endswith(".txt"): 
 			filePathsList.append(os.path.join(path, filename))
+	numOfFile = len(filePathsList)
 	
 	# process each file	
 	for file in filePathsList:
@@ -47,7 +48,7 @@ def make_inverted_index(path):
 					inverted[word]['postings'] = {}
 					inverted[word]['postings'][filename] = {}
 					inverted[word]['postings'][filename]['tf'] = wordsAndCount[word]
-					inverted[word]['postings'][filename]['tf-idf'] = 0
+					inverted[word]['postings'][filename]['tf-idf'] = (1 + math.log(inverted[word]['postings'][filename]['tf'], 10)) * (math.log(numOfFile/inverted[word]['df'], 10))
 					inverted[word]['postings'][filename]['pos'] = tuple(sorted([i for i, item in enumerate(tokenizedWord) if item == word]))
 				# word already existed
 				else:
@@ -56,12 +57,12 @@ def make_inverted_index(path):
 						inverted[word]['df'] += 1
 						inverted[word]['postings'][filename] = {}
 						inverted[word]['postings'][filename]['tf'] = wordsAndCount[word]
-						inverted[word]['postings'][filename]['tf-idf'] = 0
+						inverted[word]['postings'][filename]['tf-idf'] = (1 + math.log(inverted[word]['postings'][filename]['tf'], 10)) * (math.log(numOfFile/inverted[word]['df'], 10))
 						inverted[word]['postings'][filename]['pos'] = tuple(sorted([i for i, item in enumerate(tokenizedWord) if item == word]))
 					# same word and same document?
 					else:
 						inverted[word]['postings'][filename]['tf'] += wordsAndCount[word]
-						inverted[word]['postings'][filename]['tf-idf'] += 0
+						inverted[word]['postings'][filename]['tf-idf'] = (1 + math.log(inverted[word]['postings'][filename]['tf'], 10)) * (math.log(numOfFile/inverted[word]['df'], 10))
 						inverted[word]['postings'][filename]['pos'] = tuple(sorted(inverted[word]['postings'][filename]['pos'] + tuple([i for i, item in enumerate(tokenizedWord) if item == word])))
 						
 						
