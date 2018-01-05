@@ -1,0 +1,19 @@
+# ------------------------------
+	.text
+main: 	lb $t0, Num1
+	lb $t1, Num2
+	lb $t2, Num3
+	add $t3, $t0, $t1
+	add $t3, $t2, $t3
+	sb $t3, Num4
+
+	li $v0, 10
+	syscall
+	
+	.data
+Num1: .byte 6
+Num2: .byte 12
+Num3: .byte 20
+Num4: .byte 99
+Str: .ascii "ABCD"
+# ------------------------------

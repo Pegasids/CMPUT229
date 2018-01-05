@@ -1,0 +1,20 @@
+#---------------------------------------------------------------
+# Assignment:           2
+# Due Date:             Feb 12, 2016
+# Name:                 Canopus Tong
+# Unix ID:              canopus
+# Lecture Section:      B1
+# Lab Section:          H01 (Monday 2:00pm-4:50pm)
+# Teaching Assistant(s):   Parisa Mohebbi
+#---------------------------------------------------------------
+# -------------------- Data Segment ------------------------
+		.data
+msg_prompt:	.asciiz "\n? "
+msg_length:	.asciiz "length= "
+length:		.word	0
+buff:		.space 81
+
+# -------------------- Text Segment ------------------------
+		.text
+main:	
+	

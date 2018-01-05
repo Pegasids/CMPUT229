@@ -1,0 +1,38 @@
+Canopus Tong 	SID: 1412275	CMPUT229 B1	LAB H01		Assignment1 
+JAN 28 2016
+
+Part1:
+Q1) 	It is a pseudo instruction. 
+	The machine instruction is:
+	lui $1, 4097 [Num1]
+	lb $8, 0($1) [Num1]
+
+Q2)	The register is 00000026 and its value is 38 in decmial since $t0 + $t1 =18 and 18 + $t2 = 38.
+
+Q3)	The value of the byte is 3c. The interpreted character is 28.
+
+Q4)	0x10010004 is the memory address of the character 'A' in the directive .ascii "ABCD".
+
+Q5)	When "syscall is commented out, the program should keep running since there are no indication 
+	for xspim that the end of the program has been reached. In this case, xspim outputs "Attempt 
+	to execute non-instruction at 0x00400050" which means xspim has executed the program for you
+ 	since the program needs to stop.
+
+Part2:
+Q1)	Error: The program prints "this is not part of the solution" when it's not supposed to be printed.
+	Corrertion: message: .asciiz "optimal solution=" 
+	It should be .asciiz instead of .ascii.
+	The program didn't work before because it doesn't the the Null to terminate. But if .asciiz is used, it means that it adds the Null values at the end and the string will be terminate by \0.
+
+Part3:
+Q1)	It gave an error of "Unaligned address in store: 0x1001001e."
+	It should be "buffer: .space 16."
+
+Q2)	The program stored the input -10 at 0x10010010 to 0x10010013. The hex value is fffffff6.
+
+Q3)	The program stored the input "abcdefg" at 0x10010000 to 0x10010006.
+
+Part4:
+Q1)	The program isn't printing the correct output to $t1. For example, 'B' is 00000011 in $t1 and it should be 0000000b. Also when any number from 0-9 are entered, there are no output.
+	To fix the problems, add "sub 	$t2, $t0, 0x30" after "bgt 	$t0, 0x39, atof" so the character from 0 to 9 will be converted. Also "sub 	$t2, $t0, 0x31" should be "sub 	$t2, $t0, 0x37" because this will calculate to the correct index. I also added "b 	done" at the end of atof.
+	
